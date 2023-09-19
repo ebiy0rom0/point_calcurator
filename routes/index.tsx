@@ -1,47 +1,66 @@
-import { Head, Link } from "aleph/react";
+import { Head } from "aleph/react";
+import {
+  Input,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from 'chakra-ui';
 
-const externalLinks = [
-  ["Get Started", "https://alephjs.org/docs/get-started"],
-  ["Docs", "https://alephjs.org/docs"],
-  ["Github", "https://github.com/alephjs/aleph.js"],
-];
+const maxBonus = 405;
+const maxScore = 3000000;
 
 export default function Index() {
+  const bonus = Array.from(new Array(maxBonus / 5), (_, i) => i * 5);
+  const score = Array.from(new Array(maxScore / 20000), (_, i) => i * 20000);
+
   return (
     <div className="screen index">
       <Head>
         <title>Aleph.js</title>
-        <meta name="description" content="The Fullstack Framework in Deno." />
+        <meta name="description" content="Event point calcurator for 'Project Sekai colorful stage feat. Miku Hatsune.'" />
       </Head>
-      <p className="logo">
-        <img src="./assets/logo.svg" width="75" height="75" title="Aleph.js" />
-      </p>
       <h1>
-        The Fullstack Framework in Deno.
+        🦐 Event Point Calcurator
       </h1>
-      <p>
-        <strong>Aleph.js</strong> gives you the best developer experience for building web applications<br />{" "}
-        with modern toolings.
-      </p>
-      <div className="external-links">
-        {externalLinks.map(([text, href]) => (
-          <a
-            href={href}
-            target="_blank"
-            key={href}
-          >
-            {text}
-          </a>
-        ))}
+      <div>
+        <Input placeholder="target points" size="sm"></Input>
       </div>
-      <nav>
-        <Link
-          role="button"
-          to="/todos"
-        >
-          Todos App Demo
-        </Link>
-      </nav>
+      <div>
+        <TableContainer>
+          <Table variant='striped' colorScheme='teal' size='sm'>
+            <TableCaption>🦐 get points </TableCaption>
+            <Thead>
+              <Tr>
+                <Th>range</Th>
+                { bonus.map(v => (<Th>{v} %</Th>)) }
+              </Tr>
+            </Thead>
+            <Tbody>
+              { score.map((sv, si) => (
+                <Tr>
+                  <Td>{sv} ~ {sv + 19999}</Td>
+                  { bonus.map(bv =>
+                    (<Td>{Math.floor((100 + si) * (100 + bv) / 100)}</Td>)
+                  )}
+                </Tr>
+              ))}
+            </Tbody>
+            <Tfoot>
+              <Tr>
+                <Th>To convert</Th>
+                <Th>into</Th>
+                <Th isNumeric>multiply by</Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 }
