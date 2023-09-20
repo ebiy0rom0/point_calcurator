@@ -103,3 +103,25 @@ header a:hover {
   font-weight: 600;
   border-bottom: 4px #42b883 solid;
 }
+
+.sticky_table thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #FFCC80;
+  z-index: 10;
+}
+
+.sticky_table thead th:first-child {
+  left: 0;
+  background-color: #9CCC65;
+  z-index: 20;
+}
+
+.sticky_table tbody td:first-child {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  background-color: #C8E9FB!important;
+  z-index: 10;
+}

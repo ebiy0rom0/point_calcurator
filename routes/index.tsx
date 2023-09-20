@@ -16,7 +16,7 @@ const maxBonus = 405;
 const maxScore = 3000000;
 
 export default function Index() {
-  const bonus = Array.from(new Array(maxBonus / 5), (_, i) => i * 5);
+  const bonus = Array.from(new Array(maxBonus / 5 + 1), (_, i) => i * 5);
   const score = Array.from(new Array(maxScore / 20000), (_, i) => i * 20000);
 
   return (
@@ -32,12 +32,12 @@ export default function Index() {
         <Input placeholder="target points" size="sm"></Input>
       </div>
       <div>
-        <TableContainer>
-          <Table variant='striped' colorScheme='teal' size='sm'>
+        <TableContainer overflowX="unset" overflowY="unset">
+          <Table className="sticky_table" variant='striped' colorScheme='whatsapp' size='sm'>
             <TableCaption>🦐 get points </TableCaption>
             <Thead>
               <Tr>
-                <Th>range</Th>
+                <Th>score \ bonus</Th>
                 { bonus.map(v => (<Th>{v} %</Th>)) }
               </Tr>
             </Thead>
@@ -46,7 +46,7 @@ export default function Index() {
                 <Tr>
                   <Td>{sv} ~ {sv + 19999}</Td>
                   { bonus.map(bv =>
-                    (<Td>{Math.floor((100 + si) * (100 + bv) / 100)}</Td>)
+                    (<Td>{ Math.floor((100 + si) * (100 + bv) / 100) }</Td>)
                   )}
                 </Tr>
               ))}
