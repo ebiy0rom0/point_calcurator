@@ -104,6 +104,10 @@ header a:hover {
   border-bottom: 4px #42b883 solid;
 }
 
+.calcurator {
+  display: flex;
+}
+
 .sticky_table thead th {
   position: -webkit-sticky;
   position: sticky;
