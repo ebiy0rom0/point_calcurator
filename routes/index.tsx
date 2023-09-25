@@ -1,5 +1,6 @@
 import { Head } from "aleph/react";
 import { useState, useEffect } from "react";
+import { NumberInputForm } from "~/components/NumberInputForm.tsx";
 import {
   Box,
   Container,
@@ -20,8 +21,6 @@ import {
 
 const maxBonus = 405;
 const maxScore = 3000000;
-
-const numberFormat = (v: number): string => v.toLocaleString();
 
 export default function Index() {
   const bonus = Array.from(new Array(maxBonus / 5 + 1), (_, i) => i * 5);
@@ -45,31 +44,22 @@ export default function Index() {
         🦐 Event Point Calcurator { target }
       </Heading>
       <Box m={[2,10]} className="calcurator">
-        <FormControl onChange={ e => setTarget(e.target.value) }>
-          <FormLabel fontSize="sm" mb={1}>目標スコア</FormLabel>
-          <NumberInput inputMode="numeric" size="sm" value={target} w="8.0em" format={numberFormat}>
-            <NumberInputField />
-          </NumberInput>
-        </FormControl>
-        <FormControl onChange={ e => setNow(e.target.value) }>
-          <FormLabel fontSize="sm" mb={1}>現在スコア</FormLabel>
-          <NumberInput inputMode="numeric" size="sm" value={now} w="8.0em" ms="4" format={numberFormat}>
-            <NumberInputField />
-          </NumberInput>
-        </FormControl>
-        <FormControl isReadOnly={true}>
-          <FormLabel fontSize="sm" mb={1}>必要スコア</FormLabel>
-          <NumberInput 
-            inputMode="numeric" 
-            size="sm" 
-            value={need} 
-            w="8.0em" 
-            ms="4" 
-            format={numberFormat}
-          >
-            <NumberInputField />
-          </NumberInput>
-        </FormControl>
+        <NumberInputForm
+          label="目標スコア"
+          value={ target }
+          onChange={ setTarget }
+        />
+        <NumberInputForm
+          label="現在スコア"
+          value={ now }
+          onChange={ setNow }
+        />
+        <NumberInputForm
+          label="必要スコア"
+          value={ need }
+          onChange={ setNeed }
+          isReadOnly={ true }
+        />
       </Box>
       <Box mx={10} overflowX="auto">
         <TableContainer overflowX="unset" overflowY="unset">
