@@ -4,7 +4,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -45,22 +44,16 @@ export default function Index() {
               { score.map((sv, si) => (
                 <Tr>
                   <Td>{sv} ~ {sv + 19999}</Td>
-                  { bonus.map(bv =>
-                    (<Td>{ Math.floor((100 + si) * (100 + bv) / 100) }</Td>)
-                  )}
+                  { bonus.map(bv => {
+                    const pt = Math.floor((100 + si) * (100 + bv) / 100);
+                    return (<Td className={pt === need && "target"}>{ pt }</Td>)
+                  })}
                 </Tr>
               ))}
             </Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>To convert</Th>
-                <Th>into</Th>
-                <Th isNumeric>multiply by</Th>
-              </Tr>
-            </Tfoot>
           </Table>
         </TableContainer>
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 }
