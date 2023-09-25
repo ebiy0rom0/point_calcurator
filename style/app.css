@@ -51,7 +51,7 @@ header a:hover {
 .screen {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  max-width: 100vw;
   height: calc(100vh - 2 * 80px);
 }
 
@@ -114,7 +114,6 @@ header a:hover {
 
 .sticky_table thead th:first-child {
   left: 0;
-  background-color: #9CCC65;
   z-index: 20;
 }
 
@@ -122,6 +121,18 @@ header a:hover {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
-  background-color: #C8E9FB!important;
   z-index: 10;
+  text-align: end;
+}
+
+.sticky_table tbody td:not(:first-child) {
+  text-align: center;
+}
+
+.sticky_table tbody tr:nth-child(even) td:first-child {
+  background-color: white;
+}
+
+.sticky_table tbody .target {
+  background-color: yellow!important;
 }
