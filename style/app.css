@@ -51,7 +51,7 @@ header a:hover {
 .screen {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  min-width: 100vw;
   height: calc(100vh - 2 * 80px);
 }
 
@@ -102,4 +102,41 @@ header a:hover {
   display: inline-block;
   font-weight: 600;
   border-bottom: 4px #42b883 solid;
+}
+
+.calcurator {
+  display: flex;
+}
+
+.sticky_table thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #FFCC80;
+  z-index: 10;
+}
+
+.sticky_table thead th:first-child {
+  left: 0;
+  z-index: 20;
+}
+
+.sticky_table tbody td:first-child {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  text-align: end;
+}
+
+.sticky_table tbody td:not(:first-child) {
+  text-align: center;
+}
+
+.sticky_table tbody tr:nth-child(even) td:first-child {
+  background-color: white;
+}
+
+.sticky_table tbody .target {
+  background-color: yellow!important;
 }

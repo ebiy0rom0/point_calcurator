@@ -1,14 +1,16 @@
 import { Head } from "aleph/react";
+import { useState, useEffect } from "react";
+import { NumberInputForm } from "~/components/NumberInputForm.tsx";
 import {
-  Input,
+  Box,
+  Container,
+  Heading,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from 'chakra-ui';
 
@@ -16,28 +18,50 @@ const maxBonus = 405;
 const maxScore = 3000000;
 
 export default function Index() {
-  const bonus = Array.from(new Array(maxBonus / 5), (_, i) => i * 5);
+  const bonus = Array.from(new Array(maxBonus / 5 + 1), (_, i) => i * 5);
   const score = Array.from(new Array(maxScore / 20000), (_, i) => i * 20000);
 
+  const [target, setTarget] = useState(250);
+  const [now, setNow]       = useState(0);
+  const [need, setNeed]     = useState(0);
+
+  useEffect(() => {
+    setNeed(target - now);
+  }, [target, now]);
+
   return (
-    <div className="screen index">
+    <Container className="screen index">
       <Head>
-        <title>Aleph.js</title>
+        <title>🦐</title>
         <meta name="description" content="Event point calcurator for 'Project Sekai colorful stage feat. Miku Hatsune.'" />
       </Head>
-      <h1>
-        🦐 Event Point Calcurator
-      </h1>
-      <div>
-        <Input placeholder="target points" size="sm"></Input>
-      </div>
-      <div>
-        <TableContainer>
-          <Table variant='striped' colorScheme='teal' size='sm'>
-            <TableCaption>🦐 get points </TableCaption>
+      <Heading as="h1">
+        🦐 Event Point Calcurator { target }
+      </Heading>
+      <Box m={[2,10]} className="calcurator">
+        <NumberInputForm
+          label="目標スコア"
+          value={ target }
+          onChange={ setTarget }
+        />
+        <NumberInputForm
+          label="現在スコア"
+          value={ now }
+          onChange={ setNow }
+        />
+        <NumberInputForm
+          label="必要スコア"
+          value={ need }
+          onChange={ setNeed }
+          isReadOnly={ true }
+        />
+      </Box>
+      <Box mx={10} overflowX="auto">
+        <TableContainer overflowX="unset" overflowY="unset">
+          <Table className="sticky_table" variant='striped' colorScheme='whatsapp' size='sm'>
             <Thead>
               <Tr>
-                <Th>range</Th>
+                <Th>score \ bonus</Th>
                 { bonus.map(v => (<Th>{v} %</Th>)) }
               </Tr>
             </Thead>
@@ -45,22 +69,16 @@ export default function Index() {
               { score.map((sv, si) => (
                 <Tr>
                   <Td>{sv} ~ {sv + 19999}</Td>
-                  { bonus.map(bv =>
-                    (<Td>{Math.floor((100 + si) * (100 + bv) / 100)}</Td>)
-                  )}
+                  { bonus.map(bv => {
+                    const pt = Math.floor((100 + si) * (100 + bv) / 100);
+                    return (<Td className={`${pt === need && "target"}`}>{ pt }</Td>)
+                  })}
                 </Tr>
               ))}
             </Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>To convert</Th>
-                <Th>into</Th>
-                <Th isNumeric>multiply by</Th>
-              </Tr>
-            </Tfoot>
           </Table>
         </TableContainer>
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 }
