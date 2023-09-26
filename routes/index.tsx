@@ -36,7 +36,7 @@ export default function Index() {
         <meta name="description" content="Event point calcurator for 'Project Sekai colorful stage feat. Miku Hatsune.'" />
       </Head>
       <Heading as="h1">
-        🦐 Event Point Calcurator { target }
+        🦐 Event Point Calcurator
       </Heading>
       <Box m={[2,10]} className="calcurator">
         <NumberInputForm
