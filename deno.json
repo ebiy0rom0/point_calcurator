@@ -21,5 +21,5 @@
     "esm:update": "deno run -A https://esm.sh/v132 update",
     "esm:remove": "deno run -A https://esm.sh/v132 remove"
   },
-  "lock": "deno.lock"
+  "lock": false
 }
