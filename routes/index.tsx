@@ -5,17 +5,12 @@ import {
   Box,
   Container,
   Heading,
-  FormControl,
-  FormLabel,
-  NumberInput,
-  NumberInputField,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from 'chakra-ui';
 
@@ -64,7 +59,6 @@ export default function Index() {
       <Box mx={10} overflowX="auto">
         <TableContainer overflowX="unset" overflowY="unset">
           <Table className="sticky_table" variant='striped' colorScheme='whatsapp' size='sm'>
-            <TableCaption>🦐 get points </TableCaption>
             <Thead>
               <Tr>
                 <Th>score \ bonus</Th>
@@ -77,7 +71,7 @@ export default function Index() {
                   <Td>{sv} ~ {sv + 19999}</Td>
                   { bonus.map(bv => {
                     const pt = Math.floor((100 + si) * (100 + bv) / 100);
-                    return (<Td className={pt === need && "target"}>{ pt }</Td>)
+                    return (<Td className={`${pt === need && "target"}`}>{ pt }</Td>)
                   })}
                 </Tr>
               ))}
