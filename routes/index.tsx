@@ -16,11 +16,11 @@ import {
 } from 'chakra-ui';
 
 export default function Index() {
-  const [base] = useState(100);
+  const [basicPt, setBasicPt] = useState(115);
 
-  const [target, setTarget] = useState(250);
-  const [now, setNow]       = useState(0);
-  const [need, setNeed]     = useState(0);
+  const [targetPt,  setTargetPt]  = useState(250);
+  const [currentPt, setCurrentPt] = useState(0);
+  const [needPt,    setNeedPt]    = useState(0);
 
   const [columnsParam] = useState({ min: 0, max:     400, span:     5 });
   const [rowsParam]    = useState({ min: 0, max: 2000000, span: 20000 });
@@ -32,8 +32,8 @@ export default function Index() {
   ), [columnsParam, rowsParam]);
 
   useEffect(() => {
-    setNeed(target - now);
-  }, [target, now]);
+    setNeedPt(targetPt - currentPt);
+  }, [targetPt, currentPt]);
 
   return (
     <Container className="screen index">
@@ -47,17 +47,17 @@ export default function Index() {
       <Box m={[2,10]} className="calcurator">
         <NumberInputForm
           label="目標スコア"
-          value={ target }
-          onChange={ setTarget }
+          value={ targetPt }
+          onChange={ setTargetPt }
         />
         <NumberInputForm
           label="現在スコア"
-          value={ now }
-          onChange={ setNow }
+          value={ currentPt }
+          onChange={ setCurrentPt }
         />
         <NumberInputForm
           label="必要スコア"
-          value={ need }
+          value={ needPt }
           onChange={ () => {} }
           isReadOnly={ true }
         />
@@ -74,7 +74,7 @@ export default function Index() {
             <Tbody>
               { matrix.map((mv, mi) =>
                   mv.map((v, i) =>
-                    need === v ? (
+                    needPt === v ? (
                       <Tr>
                         <Td>{ rows[mi] } ~ { rows[mi] + 19999 }</Td>
                         <Td>{ columns[i] } %</Td>
@@ -98,7 +98,7 @@ export default function Index() {
               { matrix.map((mv, mi) => (
                 <Tr>
                   <Td>{ rows[mi] } ~ { rows[mi] + 19999 }</Td>
-                  { mv.map(v => (<Td className={`${v === need && "target"}`} px="0.5rem">{ v }</Td>)) }
+                  { mv.map(v => (<Td className={`${v === needPt && "target"}`} px="0.5rem">{ v }</Td>)) }
                 </Tr>
               ))}
             </Tbody>

@@ -16,13 +16,13 @@ export const NumberInputForm: FC<Props & OptionalProps> = ({
   inputSize = "sm",
   w = "8.0em"
 }) => (
-  <FormControl onChange={ 
+  <FormControl onChange={
     (e: React.ChangeEvent<HTMLInputElement>) => { onChange(toNumeric(e.target.value)) }
   }>
     <FormLabel fontSize={ labelSize } mb={1}>
       { label }
     </FormLabel>
-    <NumberInput 
+    <NumberInput
       inputMode="numeric"
       value={ value }
       isReadOnly={ isReadOnly }
