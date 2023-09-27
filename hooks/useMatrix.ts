@@ -7,10 +7,7 @@ export const useMatrix = (
   const columns = createLabels(columnsParam);
   const rows    = createLabels(rowsParam);
 
-  const matrix = (() => {
-    console.log("create matrix")
-    return rows.map((yv, yi) => columns.map((xv, xi) => calcMatrix(xv, xi, yv, yi)))
-  })();
+  const matrix = rows.map(yv => columns.map(xv => calcMatrix(xv, yv)));
 
   return [columns, rows, matrix];
 }
@@ -26,4 +23,4 @@ type CreateLabelsParam = {
   span: number
 };
 
-type MatrixCalcurator = (x: number, xi: number, y: number, yi: number) => number;
+type MatrixCalcurator = (x: number, y: number) => number;

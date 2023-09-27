@@ -28,10 +28,8 @@ export default function Index() {
   const [columns, rows, matrix] = useMemo(() => useMatrix(
     columnsParam,
     rowsParam,
-    (x, _xi, _y, yi) => Math.floor((base + yi) * (100 + x) / 100),
+    (x, y) => Math.floor((basicPt * (100 + Math.floor(y / 20000))) * (100 + x) / 10000),
   ), [columnsParam, rowsParam]);
-
-  // const hoge = matrix.
 
   useEffect(() => {
     setNeed(target - now);
