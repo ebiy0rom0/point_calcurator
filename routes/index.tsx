@@ -1,6 +1,7 @@
 import { Head } from "aleph/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { NumberInputForm } from "~/components/NumberInputForm.tsx";
+import { useMatrix } from "~/hooks/useMatrix.ts";
 import {
   Box,
   Container,
@@ -14,16 +15,23 @@ import {
   TableContainer,
 } from 'chakra-ui';
 
-const maxBonus = 405;
-const maxScore = 3000000;
-
 export default function Index() {
-  const bonus = Array.from(new Array(maxBonus / 5 + 1), (_, i) => i * 5);
-  const score = Array.from(new Array(maxScore / 20000), (_, i) => i * 20000);
+  const [base] = useState(100);
 
   const [target, setTarget] = useState(250);
   const [now, setNow]       = useState(0);
   const [need, setNeed]     = useState(0);
+
+  const [columnsParam] = useState({ min: 0, max:     400, span:     5 });
+  const [rowsParam]    = useState({ min: 0, max: 2000000, span: 20000 });
+
+  const [columns, rows, matrix] = useMemo(() => useMatrix(
+    columnsParam,
+    rowsParam,
+    (x, _xi, _y, yi) => Math.floor((base + yi) * (100 + x) / 100),
+  ), [columnsParam, rowsParam]);
+
+  // const hoge = matrix.
 
   useEffect(() => {
     setNeed(target - now);
@@ -52,27 +60,47 @@ export default function Index() {
         <NumberInputForm
           label="必要スコア"
           value={ need }
-          onChange={ setNeed }
+          onChange={ () => {} }
           isReadOnly={ true }
         />
+      </Box>
+      <Box>
+        <TableContainer maxW="20%">
+          <Table variant="striped" colorScheme="twitter" size="sm">
+            <Thead color="twitter">
+              <Tr>
+                <Th>スコア</Th>
+                <Th>ボーナス</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              { matrix.map((mv, mi) =>
+                  mv.map((v, i) =>
+                    need === v ? (
+                      <Tr>
+                        <Td>{ rows[mi] } ~ { rows[mi] + 19999 }</Td>
+                        <Td>{ columns[i] } %</Td>
+                      </Tr>
+                    ) : (<></>)
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
       </Box>
       <Box mx={10} overflowX="auto">
         <TableContainer overflowX="unset" overflowY="unset">
           <Table className="sticky_table" variant='striped' colorScheme='whatsapp' size='sm'>
             <Thead>
               <Tr>
-                <Th>score \ bonus</Th>
-                { bonus.map(v => (<Th>{v} %</Th>)) }
+                <Th>スコア \ ボーナス</Th>
+                { columns.map(v => (<Th px="0.5rem">{v} %</Th>)) }
               </Tr>
             </Thead>
             <Tbody>
-              { score.map((sv, si) => (
+              { matrix.map((mv, mi) => (
                 <Tr>
-                  <Td>{sv} ~ {sv + 19999}</Td>
-                  { bonus.map(bv => {
-                    const pt = Math.floor((100 + si) * (100 + bv) / 100);
-                    return (<Td className={`${pt === need && "target"}`}>{ pt }</Td>)
-                  })}
+                  <Td>{ rows[mi] } ~ { rows[mi] + 19999 }</Td>
+                  { mv.map(v => (<Td className={`${v === need && "target"}`} px="0.5rem">{ v }</Td>)) }
                 </Tr>
               ))}
             </Tbody>
