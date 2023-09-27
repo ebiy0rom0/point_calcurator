@@ -12,10 +12,8 @@ export const useMatrix = (
   return [columns, rows, matrix];
 }
 
-const createLabels = ({ min, max, span }: CreateLabelsParam): number[] => {
-  console.log("create labels")
-    return Array.from(new Array(Math.floor((max - min) / span)), (_, i) => i * span + min);
-}
+const createLabels = ({ min, max, span }: CreateLabelsParam): number[] =>
+    Array.from(new Array(Math.floor((max - min) / span)), (_, i) => i * span + min);
 
 type CreateLabelsParam = {
   min: number,
