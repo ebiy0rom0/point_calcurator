@@ -16,7 +16,7 @@ export const NumberInputForm: FC<Props & OptionalProps> = ({
   inputSize = "sm",
   w = "8.0em"
 }) => (
-  <FormControl onChange={
+  <FormControl w={ w } onChange={
     (e: React.ChangeEvent<HTMLInputElement>) => { onChange(toNumeric(e.target.value)) }
   }>
     <FormLabel fontSize={ labelSize } mb={1}>
@@ -42,9 +42,7 @@ const defaultNumberFormat = (v: number | string): string => {
   return v;
 }
 
-const toNumeric = (locale: string): number => {
-  return (+locale.replace(/,/g, ""))
-}
+const toNumeric = (locale: string): number => +locale.replace(/,/g, "")
 
 type Size = "xs" | "sm" | "md" | "lg"
 
