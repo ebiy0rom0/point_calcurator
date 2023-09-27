@@ -52,7 +52,7 @@ header a:hover {
   display: flex;
   flex-direction: column;
   min-width: 100vw;
-  height: calc(100vh - 2 * 80px);
+  height: calc(100vh - 80px);
 }
 
 .e404 h2 {
@@ -104,15 +104,14 @@ header a:hover {
   border-bottom: 4px #42b883 solid;
 }
 
-.calcurator {
-  display: flex;
+table thead th {
+  background-color: #FEEBC8;
 }
 
 .sticky_table thead th {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #FFCC80;
   z-index: 10;
 }
 
@@ -138,5 +137,7 @@ header a:hover {
 }
 
 .sticky_table tbody .target {
-  background-color: yellow!important;
+  font-weight: 600;
+  color: red;
+  background-color: #F6E05E!important;
 }
